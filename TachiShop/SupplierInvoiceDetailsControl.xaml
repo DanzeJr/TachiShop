@@ -1,0 +1,228 @@
+﻿<UserControl
+    x:Class="TachiShop.SupplierInvoiceDetailsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:TachiShop"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=SupplierInvoiceDetailsViewModel}"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="0,8,0,8" />
+            </Style>
+            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="0,8,0,8" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="20,0,20,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Margin="0,0,0,10"
+            Orientation="Horizontal">
+            <TextBlock
+                HorizontalAlignment="Left"
+                FontWeight="DemiBold"
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Chi tiết hóa đơn nhập kho" />
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="0,10"
+            VerticalAlignment="Center"
+            FontWeight="DemiBold"
+            Text="Ngày nhập: " />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            Text="{Binding SupplierInvoice.ImportDate, StringFormat=\{0:dd/MM/yyyy HH:mm:ss\}}" />
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="0,10"
+            VerticalAlignment="Center"
+            FontWeight="DemiBold"
+            Text="Khách hàng: " />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            Text="{Binding SupplierInvoice.Supplier.DisplayValue}" />
+
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Margin="0,10,0,20"
+            VerticalAlignment="Center"
+            FontWeight="DemiBold"
+            Text="Nhân viên: " />
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="2"
+            Margin="0,10,0,20"
+            VerticalAlignment="Center"
+            Text="{Binding SupplierInvoice.CreatingUser.DisplayValue}" />
+
+        <Separator
+            Grid.Row="5"
+            Grid.Column="0"
+            Grid.ColumnSpan="4" />
+
+        <TextBlock
+            Grid.Row="6"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Margin="0,10"
+            VerticalAlignment="Center"
+            FontSize="15"
+            FontWeight="DemiBold"
+            Text="Danh sách mặt hàng" />
+
+
+        <DataGrid
+            x:Name="DataGrid"
+            Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Height="Auto"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            IsReadOnly="True"
+            ItemsSource="{Binding SupplierInvoice.ProductOptions}"
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <DataGrid.Resources>
+                <Style
+                    x:Key="CenterRightColumnHeaderStyle"
+                    BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
+                    TargetType="DataGridColumnHeader">
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="HorizontalContentAlignment" Value="Right" />
+                    <Setter Property="Padding" Value="5,0" />
+                </Style>
+                <Style x:Key="CenterRightCellStyle" TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding Product.Name}"
+                    Header="Tên mặt hàng" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding Status, Converter={StaticResource EnumConverter}, ConverterParameter='ProductStatus'}"
+                    Header="Trạng thái" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding OriginStock, Converter={StaticResource DecimalConverter}, ConverterParameter='UNIT'}"
+                    Header="Số lượng"
+                    SortMemberPath="OriginStock" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding Unit, Converter={StaticResource EnumConverter}, ConverterParameter='PRODUCTUNIT'}"
+                    Header="Đơn vị tính" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding SupplyPrice, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICE'}"
+                    Header="Giá nhập"
+                    SortMemberPath="SupplyPrice" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding Price, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICE'}"
+                    Header="Giá bán"
+                    SortMemberPath="Price" />
+                <DataGridTextColumn
+                    Width="Auto"
+                    Binding="{Binding TotalSupplyPrice, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICE'}"
+                    ElementStyle="{StaticResource CenterRightCellStyle}"
+                    Header="Tổng tiền nhập"
+                    HeaderStyle="{StaticResource CenterRightColumnHeaderStyle}"
+                    SortMemberPath="TotalSupplyPrice" />
+                <DataGridTemplateColumn Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                Height="20"
+                                Command="{Binding DataContext.OpenEditDialogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                CommandParameter="{Binding DataContext.Id, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"
+                                Foreground="DodgerBlue"
+                                Style="{DynamicResource MaterialDesignIconForegroundButton}"
+                                ToolTip="Cập nhật">
+                                <materialDesign:PackIcon Height="20" Kind="Edit" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid
+            Grid.Row="8"
+            Grid.Column="0"
+            Margin="0,10"
+            ColumnSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                HorizontalAlignment="Right"
+                FontWeight="DemiBold"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                Text="Tổng Tiền: " />
+            <TextBlock
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                FontWeight="DemiBold"
+                Foreground="Red"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                Text="{Binding SupplierInvoice.TotalPrice, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICELONG'}" />
+        </Grid>
+    </Grid>
+</UserControl>

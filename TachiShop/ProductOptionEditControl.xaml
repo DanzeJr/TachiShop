@@ -1,0 +1,194 @@
+﻿<UserControl
+    x:Class="TachiShop.ProductOptionEditControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:TachiShop"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validationRules="clr-namespace:TachiShop.ValidationRules"
+    Width="400"
+    Height="auto"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=ProductOptionEditViewModel}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <validationRules:BindingProxy x:Key="Proxy" Data="{Binding}" />
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Button
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Right"
+            Command="{Binding CloseDialogCommand}"
+            Content="{materialDesign:PackIcon Kind=Close,
+                                              Size=24}"
+            Style="{DynamicResource MaterialDesignIconForegroundButton}"
+            ToolTip="Thoát" />
+        <ScrollViewer
+            Grid.Row="1"
+            Margin="50,0,50,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="Giá bán" />
+                <TextBox
+                    x:Name="TbPrice"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    MaxWidth="208"
+                    materialDesign:HintAssist.Hint="Nhập giá bán"
+                    MaxLength="50"
+                    TextWrapping="Wrap">
+                    <TextBox.Text>
+                        <Binding
+                            Converter="{StaticResource DecimalConverter}"
+                            ConverterParameter="PRICE"
+                            Delay="500"
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.Price"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DecimalValidationRule Min="100" RequiredMessage="Vui lòng nhập giá bán" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,10,10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="Trạng thái" />
+                <ComboBox
+                    x:Name="CbStatus"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    MaxWidth="208"
+                    Margin="0,10,0,0"
+                    materialDesign:HintAssist.Hint="Chọn trạng thái"
+                    DisplayMemberPath="Value"
+                    ItemsSource="{Binding Statuses}"
+                    SelectedValuePath="Key">
+                    <ComboBox.SelectedValue>
+                        <Binding
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.Status"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:NotEmptyValidationRule EmptyValue="-1" Message="Vui lòng chọn trạng thái" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedValue>
+                </ComboBox>
+
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="0,10,10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="Tồn kho" />
+                <TextBox
+                    x:Name="TbStock"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    MaxWidth="208"
+                    Margin="0,10,0,0"
+                    materialDesign:HintAssist.Hint="Nhập số lượng tồn kho"
+                    materialDesign:TextFieldAssist.SuffixText="{Binding ProductOption.Unit, Converter={StaticResource EnumConverter}, ConverterParameter='PRODUCTUNIT'}"
+                    MaxLength="50"
+                    TextWrapping="Wrap">
+                    <TextBox.Text>
+                        <Binding
+                            Converter="{StaticResource DecimalConverter}"
+                            ConverterParameter="UNIT"
+                            Delay="500"
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.Stock"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DecimalValidationRule Min="0.01" RequiredMessage="Vui lòng nhập số lượng tồn kho">
+                                    <validationRules:DecimalValidationRule.Wrapper>
+                                        <validationRules:DecimalWrapper DecimalPlaces="{Binding Data.ProductOption.Unit, Converter={StaticResource UnitToDecimalPlaceConverter}, Source={StaticResource Proxy}}" Max="{Binding Data.ProductOption.OriginStock, Source={StaticResource Proxy}}" />
+                                    </validationRules:DecimalValidationRule.Wrapper>
+                                </validationRules:DecimalValidationRule>
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </Grid>
+        </ScrollViewer>
+        <!--  start + popupbox  -->
+        <Grid
+            Grid.Row="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button
+                Width="100"
+                Background="DodgerBlue"
+                BorderBrush="DodgerBlue"
+                Command="{Binding UpdateCommand}"
+                Content="Cập nhật"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Cập nhật" />
+            <Button
+                Grid.Column="1"
+                Width="100"
+                Command="{Binding ClearCommand}"
+                Content="Làm mới"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Làm mới" />
+        </Grid>
+        <!--  End + popupbox  -->
+    </Grid>
+</UserControl>

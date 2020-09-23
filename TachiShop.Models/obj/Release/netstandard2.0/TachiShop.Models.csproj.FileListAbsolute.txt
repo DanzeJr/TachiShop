@@ -1,0 +1,9 @@
+D:\FPT\PRN292\TachiShop.Models\bin\Release\netstandard2.0\TachiShop.Models.deps.json
+D:\FPT\PRN292\TachiShop.Models\bin\Release\netstandard2.0\TachiShop.Models.dll
+D:\FPT\PRN292\TachiShop.Models\bin\Release\netstandard2.0\TachiShop.Models.pdb
+D:\FPT\PRN292\TachiShop.Models\obj\Release\netstandard2.0\TachiShop.Models.csprojAssemblyReference.cache
+D:\FPT\PRN292\TachiShop.Models\obj\Release\netstandard2.0\TachiShop.Models.AssemblyInfoInputs.cache
+D:\FPT\PRN292\TachiShop.Models\obj\Release\netstandard2.0\TachiShop.Models.AssemblyInfo.cs
+D:\FPT\PRN292\TachiShop.Models\obj\Release\netstandard2.0\TachiShop.Models.csproj.CoreCompileInputs.cache
+D:\FPT\PRN292\TachiShop.Models\obj\Release\netstandard2.0\TachiShop.Models.dll
+D:\FPT\PRN292\TachiShop.Models\obj\Release\netstandard2.0\TachiShop.Models.pdb

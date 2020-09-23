@@ -1,0 +1,15 @@
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Repositories.deps.json
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Repositories.runtimeconfig.json
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Repositories.runtimeconfig.dev.json
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Repositories.dll
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Repositories.pdb
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Models.dll
+D:\FPT\PRN292\TachiShop.Repositories\bin\Release\netcoreapp3.1\TachiShop.Models.pdb
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.csprojAssemblyReference.cache
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.AssemblyInfoInputs.cache
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.AssemblyInfo.cs
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.csproj.CoreCompileInputs.cache
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.csproj.CopyComplete
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.dll
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.pdb
+D:\FPT\PRN292\TachiShop.Repositories\obj\Release\netcoreapp3.1\TachiShop.Repositories.genruntimeconfig.cache

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "r4n6yAcN9L/6cwxdYDqtA/7btyJWhvV9pUHkz9Qv93xc6o2xZrNtx1tyTd/Jy5Jj1QSxGIIrHWrN6/ch9OBoAw==",
+  "success": true,
+  "projectFilePath": "D:\\FPT\\PRN292\\TachiShop\\TachiShop.Utils\\TachiShop.Utils.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Hoang\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

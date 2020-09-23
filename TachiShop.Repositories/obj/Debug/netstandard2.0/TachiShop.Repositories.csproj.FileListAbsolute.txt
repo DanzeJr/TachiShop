@@ -1,0 +1,16 @@
+D:\FPT\PRN292\TachiShop\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Repositories.deps.json
+D:\FPT\PRN292\TachiShop\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Repositories.dll
+D:\FPT\PRN292\TachiShop\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.csprojAssemblyReference.cache
+D:\FPT\PRN292\TachiShop\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.AssemblyInfoInputs.cache
+D:\FPT\PRN292\TachiShop\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.AssemblyInfo.cs
+D:\FPT\PRN292\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Repositories.deps.json
+D:\FPT\PRN292\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Repositories.dll
+D:\FPT\PRN292\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Repositories.pdb
+D:\FPT\PRN292\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.csprojAssemblyReference.cache
+D:\FPT\PRN292\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.AssemblyInfoInputs.cache
+D:\FPT\PRN292\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.AssemblyInfo.cs
+D:\FPT\PRN292\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.dll
+D:\FPT\PRN292\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.pdb
+D:\FPT\PRN292\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Models.dll
+D:\FPT\PRN292\TachiShop.Repositories\bin\Debug\netstandard2.0\TachiShop.Models.pdb
+D:\FPT\PRN292\TachiShop.Repositories\obj\Debug\netstandard2.0\TachiShop.Repositories.csproj.CopyComplete

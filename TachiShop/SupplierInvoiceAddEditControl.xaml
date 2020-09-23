@@ -1,0 +1,574 @@
+﻿<UserControl
+    x:Class="TachiShop.SupplierInvoiceAddEditControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:TachiShop"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    xmlns:validationRules="clr-namespace:TachiShop.ValidationRules"
+    Width="Auto"
+    Height="Auto"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=SupplierInvoiceAddEditViewModel}"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <validationRules:BindingProxy x:Key="Proxy" Data="{Binding}" />
+            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="0,8,0,8" />
+            </Style>
+            <Style BasedOn="{StaticResource MaterialDesignComboBox}" TargetType="{x:Type ComboBox}">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="0,8,0,8" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="220" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="6"
+                Margin="0,0,0,10"
+                Orientation="Horizontal">
+                <TextBlock
+                    x:Name="TbTitle"
+                    HorizontalAlignment="Left"
+                    FontWeight="DemiBold"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}">
+                    Tạo mới hóa đơn nhập kho
+                </TextBlock>
+            </StackPanel>
+
+            <DataGrid
+                x:Name="DataGrid"
+                Grid.Row="1"
+                Grid.RowSpan="8"
+                Grid.Column="5"
+                Height="Auto"
+                AutoGenerateColumns="False"
+                CanUserAddRows="False"
+                IsReadOnly="True"
+                ItemsSource="{Binding ProductOptions}"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                SelectedItem="{Binding SelectedOption}">
+                <DataGrid.Resources>
+                    <Style
+                        x:Key="CenterRightColumnHeaderStyle"
+                        BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}"
+                        TargetType="DataGridColumnHeader">
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                        <Setter Property="Padding" Value="5,0" />
+                    </Style>
+                    <Style x:Key="CenterRightCellStyle" TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                    </Style>
+                </DataGrid.Resources>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding DataGridSelectionChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Product.Name}"
+                        Header="Tên mặt hàng" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Status, Converter={StaticResource EnumConverter}, ConverterParameter='ProductStatus'}"
+                        Header="Trạng thái" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding OriginStock, Converter={StaticResource DecimalConverter}, ConverterParameter='UNIT'}"
+                        Header="Số lượng"
+                        SortMemberPath="OriginStock" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Unit, Converter={StaticResource EnumConverter}, ConverterParameter='PRODUCTUNIT'}"
+                        Header="Đơn vị tính" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding SupplyPrice, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICE'}"
+                        Header="Giá nhập"
+                        SortMemberPath="SupplyPrice" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding Price, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICE'}"
+                        Header="Giá bán"
+                        SortMemberPath="Price" />
+                    <DataGridTextColumn
+                        Width="Auto"
+                        Binding="{Binding TotalSupplyPrice, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICE'}"
+                        ElementStyle="{StaticResource CenterRightCellStyle}"
+                        Header="Tổng tiền nhập"
+                        HeaderStyle="{StaticResource CenterRightColumnHeaderStyle}"
+                        SortMemberPath="TotalSupplyPrice" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="16,0,8,0"
+                VerticalAlignment="Center"
+                Text="Ngày nhập" />
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <DatePicker
+                    x:Name="DpImportDate"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    materialDesign:HintAssist.Hint="Chọn ngày"
+                    DisplayDateEnd="{x:Static sys:DateTime.Now}">
+                    <DatePicker.SelectedDate>
+                        <Binding
+                            NotifyOnValidationError="True"
+                            Path="ImportDate"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DateTimeValidationRule Required="True" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+                <materialDesign:TimePicker
+                    x:Name="TpImportTime"
+                    Grid.Column="2"
+                    Height="25"
+                    Margin="0,0,0,0"
+                    materialDesign:HintAssist.Hint="Chọn giờ">
+                    <materialDesign:TimePicker.SelectedTime>
+                        <Binding
+                            NotifyOnValidationError="True"
+                            Path="ImportTime"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DateTimeValidationRule Required="True" RequiredMessage="Vui lòng nhập giờ" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </materialDesign:TimePicker.SelectedTime>
+                </materialDesign:TimePicker>
+            </Grid>
+
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="16,20,8,0"
+                VerticalAlignment="Center"
+                Text="Nhà cung cấp" />
+            <ComboBox
+                x:Name="CbSupplier"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="0,20,0,0"
+                VerticalAlignment="Bottom"
+                materialDesign:HintAssist.Hint="Chọn nhà cung cấp"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Suppliers}"
+                SelectedItem="{Binding SupplierInvoice.Supplier}"
+                SelectedValuePath="Id">
+                <ComboBox.SelectedValue>
+                    <Binding
+                        NotifyOnValidationError="True"
+                        Path="SupplierInvoice.SupplierId"
+                        UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnDataErrors="True">
+                        <Binding.ValidationRules>
+                            <validationRules:GuidValidationRule RequiredMessage="Vui lòng chọn nhà cung cấp" />
+                            <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedValue>
+            </ComboBox>
+            <Button
+                Grid.Row="3"
+                Grid.Column="3"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Bottom"
+                Background="Green"
+                Command="{Binding OpenAddSupplierDialogCommand}"
+                Style="{DynamicResource MaterialDesignIconButton}"
+                ToolTip="Tạo mới nhà cung cấp">
+                <materialDesign:PackIcon Foreground="White" Kind="HomeAdd" />
+            </Button>
+
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="16,30,8,0"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="DemiBold"
+                Text="Danh sách mặt hàng" />
+
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="0"
+                Margin="16,8,8,0"
+                VerticalAlignment="Center"
+                Text="Mặt hàng" />
+            <ComboBox
+                x:Name="CbProduct"
+                Grid.Row="5"
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                VerticalAlignment="Bottom"
+                materialDesign:HintAssist.Hint="Chọn mặt hàng"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Products}"
+                SelectedItem="{Binding ProductOption.Product}"
+                SelectedValuePath="Id">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ProductSelectionChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBox.SelectedValue>
+                    <Binding
+                        NotifyOnValidationError="True"
+                        Path="ProductOption.ProductId"
+                        UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnDataErrors="True">
+                        <Binding.ValidationRules>
+                            <validationRules:GuidValidationRule RequiredMessage="Vui lòng chọn mặt hàng" />
+                            <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedValue>
+            </ComboBox>
+            <Button
+                Grid.Row="5"
+                Grid.Column="3"
+                Width="30"
+                Height="30"
+                VerticalAlignment="Bottom"
+                Background="Green"
+                Command="{Binding OpenAddProductDialogCommand}"
+                Style="{DynamicResource MaterialDesignIconButton}"
+                ToolTip="Tạo mới mặt hàng">
+                <materialDesign:PackIcon Foreground="White" Kind="DatabaseAdd" />
+            </Button>
+
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="0"
+                Margin="16,18,8,0"
+                VerticalAlignment="Center"
+                Text="Trạng thái" />
+            <ComboBox
+                x:Name="CbStatus"
+                Grid.Row="6"
+                Grid.Column="1"
+                Margin="0,20,0,0"
+                VerticalAlignment="Bottom"
+                materialDesign:HintAssist.Hint="Chọn trạng thái"
+                DisplayMemberPath="Value"
+                ItemsSource="{Binding Statuses}"
+                SelectedValuePath="Key">
+                <ComboBox.SelectedValue>
+                    <Binding
+                        NotifyOnValidationError="True"
+                        Path="ProductOption.Status"
+                        UpdateSourceTrigger="PropertyChanged"
+                        ValidatesOnDataErrors="True">
+                        <Binding.ValidationRules>
+                            <validationRules:NotEmptyValidationRule EmptyValue="-1" Message="Vui lòng chọn trạng thái mặt hàng" />
+                            <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </ComboBox.SelectedValue>
+            </ComboBox>
+
+            <TextBlock
+                Grid.Row="7"
+                Grid.Column="0"
+                Margin="16,18,8,0"
+                VerticalAlignment="Center"
+                Text="Số lượng" />
+            <Grid Grid.Row="7" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="TbOriginStock"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Nhập số lượng">
+                    <TextBox.Text>
+                        <Binding
+                            Converter="{StaticResource DecimalConverter}"
+                            ConverterParameter="UNIT"
+                            Delay="500"
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.OriginStock"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DecimalValidationRule Min="0.01" RequiredMessage="Vui lòng nhập số lượng">
+                                    <validationRules:DecimalValidationRule.Wrapper>
+                                        <validationRules:DecimalWrapper DecimalPlaces="{Binding Data.ProductOption.Unit, Converter={StaticResource UnitToDecimalPlaceConverter}, Source={StaticResource Proxy}}" />
+                                    </validationRules:DecimalValidationRule.Wrapper>
+                                </validationRules:DecimalValidationRule>
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox
+                    x:Name="CbUnit"
+                    Grid.Column="2"
+                    Margin="0,20,0,0"
+                    VerticalAlignment="Center"
+                    materialDesign:HintAssist.Hint="Chọn đơn vị"
+                    DisplayMemberPath="Value"
+                    ItemsSource="{Binding Units}"
+                    SelectedValuePath="Key">
+                    <ComboBox.SelectedValue>
+                        <Binding
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.Unit"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:NotEmptyValidationRule EmptyValue="-1" Message="Vui lòng chọn đơn vị" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.SelectedValue>
+                </ComboBox>
+            </Grid>
+
+            <TextBlock
+                Grid.Row="8"
+                Grid.Column="0"
+                Margin="16,18,8,0"
+                VerticalAlignment="Center"
+                Text="Giá" />
+            <Grid Grid.Row="8" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="TbSupplyPrice"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Giá nhập">
+                    <TextBox.Text>
+                        <Binding
+                            Converter="{StaticResource DecimalConverter}"
+                            ConverterParameter="PRICE"
+                            Delay="500"
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.SupplyPrice"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DecimalValidationRule Min="100" RequiredMessage="Vui lòng nhập giá nhập" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox
+                    x:Name="TbPrice"
+                    Grid.Column="2"
+                    Margin="0,20,0,0"
+                    materialDesign:HintAssist.Hint="Giá bán">
+                    <TextBox.Text>
+                        <Binding
+                            Converter="{StaticResource DecimalConverter}"
+                            ConverterParameter="PRICE"
+                            Delay="500"
+                            NotifyOnValidationError="True"
+                            Path="ProductOption.Price"
+                            UpdateSourceTrigger="PropertyChanged"
+                            ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validationRules:DecimalValidationRule Min="100" RequiredMessage="Vui lòng nhập giá bán" />
+                                <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </Grid>
+
+            <Grid
+                Grid.Row="10"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Margin="0,30,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.7*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Width="130"
+                    Height="25"
+                    HorizontalAlignment="Right"
+                    Command="{Binding AddEditProductInvoiceCommand}"
+                    FontSize="11">
+                    <Button.Resources>
+                        <Style BasedOn="{StaticResource MaterialDesignRaisedDarkButton}" TargetType="Button">
+                            <Setter Property="Content" Value="Thêm vào hóa đơn" />
+                            <Setter Property="ToolTip" Value="Thêm mặt hàng vào hóa đơn" />
+                            <Setter Property="Background" Value="Green" />
+                            <Setter Property="BorderBrush" Value="Green" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=DataGrid, Path=SelectedItems.Count, Converter={StaticResource NotZeroConverter}}" Value="True">
+                                    <Setter Property="Content" Value="Cập nhật hóa đơn" />
+                                    <Setter Property="ToolTip" Value="Cập nhật mặt hàng vào hóa đơn" />
+                                    <Setter Property="Background" Value="DodgerBlue" />
+                                    <Setter Property="BorderBrush" Value="DodgerBlue" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button
+                    Grid.Column="1"
+                    Width="Auto"
+                    Height="25"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ClearProductCommand}"
+                    Content="Làm mới"
+                    FontSize="11"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    ToolTip="Làm mới mặt hàng" />
+            </Grid>
+            <Button
+                Grid.Row="10"
+                Grid.Column="5"
+                Width="Auto"
+                Height="25"
+                Margin="0,15"
+                HorizontalAlignment="Right"
+                Command="{Binding RemoveProductInvoiceCommand}"
+                CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItems}"
+                Content="Xóa khỏi hóa đơn"
+                FontSize="11"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Xóa khỏi hóa đơn"
+                Visibility="{Binding ElementName=DataGrid, Path=SelectedItems.Count, Converter={StaticResource NotZeroToVisibilityConverter}}" />
+
+            <Grid
+                Grid.Row="12"
+                Grid.Column="5"
+                Visibility="{Binding ProductOptions.Count, Converter={StaticResource NotZeroToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    FontWeight="DemiBold"
+                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                    Text="Tổng Tiền Nhập: " />
+                <TextBlock
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    FontWeight="DemiBold"
+                    Foreground="Red"
+                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                    Text="{Binding TotalPrice, Converter={StaticResource DecimalConverter}, ConverterParameter='PRICELONG'}" />
+            </Grid>
+
+        </Grid>
+        <!--  start + popupbox  -->
+        <Grid
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button
+                Width="120"
+                Background="Green"
+                BorderBrush="Green"
+                Command="{Binding AddInvoiceCommand}"
+                Content="Tạo hóa đơn"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Tạo mới hóa đơn nhập kho" />
+            <Button
+                Grid.Column="1"
+                Width="120"
+                Command="{Binding ClearCommand}"
+                Content="Làm mới"
+                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                ToolTip="Làm mới hóa đơn" />
+            <materialDesign:Snackbar Grid.Row="1" Grid.Column="1" />
+        </Grid>
+        <!--  End + popupbox  -->
+    </Grid>
+</UserControl>

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "kdS/oZ2DXOTH9lziYKtC6mifMIDICsRtW+hGiiOiXh+XHDNCUohPEe3SdSYd1vp8q5hJAOWvap/gTlGWbBREuQ==",
+  "success": true,
+  "projectFilePath": "D:\\FPT\\PRN292\\TachiShop\\TachiShop.Models\\TachiShop.Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hoang\\.nuget\\packages\\bogus\\30.0.4\\bogus.30.0.4.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Hoang\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Hoang\\.nuget\\packages\\system.componentmodel.annotations\\4.7.0\\system.componentmodel.annotations.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}

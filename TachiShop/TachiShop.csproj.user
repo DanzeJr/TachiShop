@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>D:\FPT\PRN292\TachiShop\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ChangePasswordControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CustomerAddEditControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CustomerListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="DashboardWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="InfoDialogControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="InvoiceAddEditControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="InvoiceListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MultiSelectComboBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ProductAddEditControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ProductOptionEditControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ProductOptionListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SupplierAddEditControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SupplierInvoiceAddEditControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SupplierInvoiceDetailsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SupplierInvoiceListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserDetailsControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserListControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="ChangePasswordControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomerAddEditControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomerListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DashboardWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="InfoDialogControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="InvoiceAddEditControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="InvoiceListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MultiSelectComboBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ProductAddEditControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ProductOptionEditControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ProductOptionListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SupplierAddEditControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SupplierInvoiceAddEditControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SupplierInvoiceDetailsControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SupplierInvoiceListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserDetailsControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserListControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

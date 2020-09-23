@@ -1,0 +1,243 @@
+﻿<Window
+    x:Class="TachiShop.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:infrastructures="clr-namespace:TachiShop.Infrastructures"
+    xmlns:local="clr-namespace:TachiShop"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validationRules="clr-namespace:TachiShop.ValidationRules"
+    Title="Tachi Shop - Login"
+    Width="800"
+    Height="550"
+    AllowsTransparency="True"
+    Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=LoginViewModel}"
+    FontFamily="{materialDesign:MaterialDesignFont}"
+    Icon="Resources/KhaHanFarm.jpg"
+    MouseLeftButtonDown="LoginWindow_OnMouseLeftButtonDown"
+    ResizeMode="CanMinimize"
+    TextElement.FontSize="13"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <materialDesign:DialogHost
+        x:Name="LoginDialog"
+        DialogTheme="Inherit"
+        Identifier="LoginDialog">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="DialogClosing">
+                <i:InvokeCommandAction Command="{Binding FinishLoginCommand}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <materialDesign:DialogHost.DialogContent>
+            <Grid Margin="30,20,30,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    x:Name="TbLoginStatus"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="15">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="Đang đăng nhập..." />
+                            <Setter Property="Foreground" Value="Black" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSuccess}" Value="True">
+                                    <Setter Property="Text" Value="Đăng nhập thành công" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Foreground" Value="Green" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsSuccess}" Value="False">
+                                    <Setter Property="Text" Value="Tên đăng nhập hoặc mật khẩu không đúng" />
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="Foreground" Value="Red" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <ProgressBar
+                    x:Name="ProgressBarLogin"
+                    Grid.Row="1"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsIndeterminate="True"
+                    Style="{StaticResource MaterialDesignCircularProgressBar}"
+                    Visibility="{Binding ProgressVisibility}" />
+                <Button
+                    x:Name="BtnFinishLogin"
+                    Grid.Row="2"
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    Content="{Binding DialogButtonText}"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignRaisedButton}" />
+            </Grid>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Margin="0,-80,0,0"
+                        HorizontalAlignment="Center"
+                        Style="{DynamicResource MaterialDesignHeadline4TextBlock}"
+                        Text="Tachi Shop" />
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="0,20,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Margin="0,15,10,0"
+                            VerticalAlignment="Center"
+                            Foreground="{Binding ElementName=TbUsername, Path=BorderBrush}"
+                            Kind="Account" />
+                        <TextBox
+                            x:Name="TbUsername"
+                            Width="180"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:HintAssist.Hint="Tên đăng nhập"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <TextBox.Text>
+                                <Binding
+                                    NotifyOnValidationError="True"
+                                    Path="UserName"
+                                    UpdateSourceTrigger="PropertyChanged"
+                                    ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validationRules:UsernameValidationRule />
+                                        <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                        <ExceptionValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="0,20,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Margin="0,10,10,0"
+                            VerticalAlignment="Center"
+                            Foreground="{Binding ElementName=PbPassword, Path=BorderBrush}"
+                            Kind="Lock" />
+                        <PasswordBox
+                            x:Name="PbPassword"
+                            Width="180"
+                            infrastructures:PasswordHelper.Attach="True"
+                            materialDesign:HintAssist.Foreground="Green"
+                            materialDesign:HintAssist.Hint="Mật khẩu"
+                            materialDesign:TextFieldAssist.UnderlineBrush="Green"
+                            Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                            <infrastructures:PasswordHelper.Password>
+                                <Binding
+                                    Mode="TwoWay"
+                                    NotifyOnValidationError="True"
+                                    Path="Password"
+                                    UpdateSourceTrigger="PropertyChanged"
+                                    ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validationRules:PasswordValidationRule />
+                                        <!--  Checks for exceptions during the setting of the source property.Alternatively, set ValidatesOnExceptions to True on the Binding.  -->
+                                        <ExceptionValidationRule />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </infrastructures:PasswordHelper.Password>
+                        </PasswordBox>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="3"
+                        Width="165"
+                        Margin="0,20,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Vertical">
+                        <CheckBox
+                            Margin="0,0,20,0"
+                            HorizontalAlignment="Center"
+                            Content="Ghi nhớ đăng nhập"
+                            IsChecked="{Binding RememberMe}" />
+                        <Button
+                            x:Name="BtnLogin"
+                            Width="150"
+                            Height="40"
+                            Margin="0,30,0,0"
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            Command="{Binding LoginCommand}"
+                            Content="Đăng nhập"
+                            Foreground="White"
+                            IsDefault="True"
+                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                    </StackPanel>
+                </Grid>
+                <materialDesign:Card
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <Image
+                        HorizontalAlignment="Center"
+                        Source="Resources/KhaHanFarm.jpg"
+                        Stretch="UniformToFill" />
+                </materialDesign:Card>
+            </Grid>
+            <StackPanel
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="BtnMinimize"
+                    Width="30"
+                    Height="30"
+                    Click="BtnMinimize_OnClick"
+                    Style="{DynamicResource MaterialDesignIconButton}"
+                    ToolTip="Thu nhỏ">
+                    <materialDesign:PackIcon Foreground="Black" Kind="WindowMinimize" />
+                </Button>
+                <Button
+                    x:Name="BtnClose"
+                    Width="30"
+                    Height="30"
+                    Click="BtnClose_OnClick"
+                    Style="{DynamicResource MaterialDesignIconButton}"
+                    ToolTip="Đóng ứng dụng">
+                    <materialDesign:PackIcon Foreground="Black" Kind="Shutdown" />
+                </Button>
+            </StackPanel>
+        </Grid>
+    </materialDesign:DialogHost>
+</Window>
